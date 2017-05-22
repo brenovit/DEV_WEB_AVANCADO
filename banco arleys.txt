@@ -1,0 +1,39 @@
+Usuário: sa
+Senha: sql1433
+
+1º criar um novo banco ( BDVendaFJA )
+
+2º Criar um diagrama de banco de dados
+
+3ºCriar uma tabela TbProduto
+*******Tabela de produtos ****
+tbProduto
+idProduto int -
+dsDescricao varchar(255)
+dsFornecedor varchar(255)
+vlValor float
+qtEstoque int
+
+4º Definir a chave primaira da tabela
+
+
+5º Inserir os registros na tabela
+
+
+
+Novo projeto Aula07
+----------------------------------
+Gridview
+add
+
+sql server, depois refresh
+servername: nome da maquina\SQLEXPRESS
+Usuário: sa
+Senha: sql1433
+
+
+
+Retornando ao projeto Aula05
+----
+Trocar String de conexão
+Criar pastas DTO,BLL,DAL dentro da APP_Code

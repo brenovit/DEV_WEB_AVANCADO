@@ -1,0 +1,48 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Mercadinho</title>
+    <link href="Content/Style.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="divForm">
+            <header>
+                <div id="divGeral">
+                    <div id="logo">
+                        <asp:Image runat="server" ImageUrl="~/Content/images/lgo_uni.png" ID="logoimg" ImageAlign="Middle" />
+                        <asp:Label Text="Mercadinho" runat="server" ID="tituloPag" Font-Size="XX-Large"></asp:Label>
+                        <div id="logOut" style="text-align: right">
+                            <asp:Button runat="server" ID="btnLogout" Text="SAIR" CssClass="btn danger" />
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <nav>
+                <div id="menu" class="vertical-menu">
+                    <a href="ProdutoListagem.aspx" id="about">Produto</a>
+                    <a href="#" id="blog">Fornecedor</a>
+                    <a href="#" id="projects">Venda</a>
+                    <a href="#" id="contact">Impressão</a>
+                </div>
+            </nav>
+            <article>
+                <div id="painel" class="painelcentral">
+                    <asp:ContentPlaceHolder ID="conteudo" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </article>
+            <footer>
+                <div id="Rodape">
+                    Mercadinho do Zé
+                </div>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>
