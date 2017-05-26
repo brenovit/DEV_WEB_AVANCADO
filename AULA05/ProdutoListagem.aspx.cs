@@ -50,7 +50,10 @@ public partial class ProdutoListagem : System.Web.UI.Page
 
     protected void btnDeletar_Click(object sender, EventArgs e)
     {
-        
+        ProdutoDTO prod = new ProdutoDTO();
+        prod.idProduto = int.Parse(lblId.Text);
+        bll.excluir(prod);
+        CarregarGrid(MontaProduto());
     }
 
     protected void btnVoltar_Click(object sender, EventArgs e)
@@ -87,5 +90,17 @@ public partial class ProdutoListagem : System.Web.UI.Page
     {
         grdProdutos.PageIndex = e.NewPageIndex;
         CarregarGrid(MontaProduto());
-    }    
+    }
+
+    protected void grdProdutos_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if(e.Row.RowType == DataControlRowType.DataRow)
+        { 
+            if (e.Row.RowState != DataControlRowState.Selected)
+            {
+                e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='#93A3B0'; this.style.color='White';");
+                e.Row.Attributes.Add("onmouseout", "this.style.color='Black';this.style.backgroundColor='White';");
+            }            
+        }
+    }
 }

@@ -27,7 +27,7 @@ public class ProdutoBLL : AcessoDAL
         {
             sql += "AND idProduto = " + produto.idProduto;
         }
-        if (produto.dsDescricao.Trim() != "") //Trim garante que a variavel não tenha espaços em branco no inicio e no final da consulta;
+        if (!string.IsNullOrEmpty(produto.dsDescricao))            
         {
             sql += "AND dsDescricao  LIKE '%" + produto.dsDescricao.Trim() + "%'";
         }
@@ -36,7 +36,7 @@ public class ProdutoBLL : AcessoDAL
             sql += "AND vlvalor = " + produto.vlValor;
         }
 
-        if (produto.dsFornecedor.Trim() != "")
+        if (!string.IsNullOrEmpty(produto.dsFornecedor))
         {
             sql += "AND dsfornecedor LIKE '%" + produto.dsFornecedor.Trim() + "%'";
         }
@@ -98,7 +98,7 @@ public class ProdutoBLL : AcessoDAL
 
     private int maxId() // Irá pegar o ID maximo da tabela
     {
-        String sSql = "SELECT Max(*) FROM tbProduto";
+        String sSql = "SELECT Max(idproduto) FROM tbProduto";
         int idretorno = 1;
         try
         {
@@ -107,7 +107,7 @@ public class ProdutoBLL : AcessoDAL
             {
                 if (!DBNull.Value.Equals(drOleDb[0]))
                 {
-                    idretorno = (int)drOleDb[0];
+                    idretorno = (int)drOleDb[0] + 1;
                 }
             }
         }
@@ -122,7 +122,7 @@ public class ProdutoBLL : AcessoDAL
     {
         int idproduto = this.maxId();
         string sql = "";
-        sql += "INSERT INTO tbProduto (idproduto, dsDescricao, vlvalor, dsfornecedor,qtEstoque) VALUES (@idproduto, @Descricao, @valor, @fornecedor,@qtEstoque)";
+        sql += "INSERT INTO tbProduto (idproduto, dsDescricao, vlvalor, dsfornecedor,qtEstoque) VALUES (?,?,?,?,?)";
 
         command = criaDbCommand(sql, CommandType.Text);
 
@@ -131,19 +131,6 @@ public class ProdutoBLL : AcessoDAL
         command.Parameters.AddWithValue("@valor", prod.vlValor);
         command.Parameters.AddWithValue("@fornecedor", prod.dsFornecedor);
         command.Parameters.AddWithValue("@qtEstoque", prod.qtEstoque);
-
-
-        //OleDbParameter parametro = command.Parameters.Add("RETURN_VALUE", OleDbType.Integer);
-        //parametro.Direction = ParameterDirection.ReturnValue;
-
-        //parametro = command.Parameters.Add("@descricao", OleDbType.VarChar);
-        //parametro.Value = prod.descricao;
-
-        //parametro = command.Parameters.Add("@valor", OleDbType.Double);
-        //parametro.Value = prod.valor;
-
-        //parametro = command.Parameters.Add("@fornecedor", OleDbType.VarChar);
-        //parametro.Value = prod.fornecedor;
 
         try
         {
@@ -156,20 +143,24 @@ public class ProdutoBLL : AcessoDAL
         {
             erro = e.Message;
         }
-      }
+    }
 
     public void alterar(ProdutoDTO prod)
     {
         String sql = "";
-        sql += "UPDATE FROM tbProduto SET (dsdescricao = @descricao, vlvalor = @valor, dsfornecedor = @fornecedor, qtEstoque=@qtEstoque) WHERE idProduto = @idProduto";
+        sql += "UPDATE tbProduto SET dsdescricao = ?, vlvalor = ?, dsfornecedor = ?, qtEstoque = ? WHERE idProduto = ?;";
 
         command = criaDbCommand(sql, CommandType.Text);
-        OleDbParameter parametro = command.Parameters.Add("@idProduto", OleDbType.Integer);
-        parametro.Value = prod.idProduto;
 
-        parametro = command.Parameters.Add("@descricao", OleDbType.VarChar);
+        command.Parameters.AddWithValue("@dsDescricao", prod.dsDescricao);
+        command.Parameters.AddWithValue("@valor", prod.vlValor);
+        command.Parameters.AddWithValue("@fornecedor", prod.dsFornecedor);
+        command.Parameters.AddWithValue("@qtEstoque", prod.qtEstoque);
+        command.Parameters.AddWithValue("@idproduto", prod.idProduto);
+
+        /*OleDbParameter parametro = command.Parameters.Add("@descricao", OleDbType.VarChar);
         parametro.Value = prod.dsDescricao;
-
+                
         parametro = command.Parameters.Add("@valor", OleDbType.Double);
         parametro.Value = prod.vlValor;
 
@@ -178,6 +169,9 @@ public class ProdutoBLL : AcessoDAL
 
         parametro = command.Parameters.Add("@qtEstoque", OleDbType.Integer);
         parametro.Value = prod.qtEstoque;
+
+        parametro = command.Parameters.Add("@idProduto", OleDbType.Integer);
+        parametro.Value = prod.idProduto;*/
 
         try
         {
@@ -190,15 +184,15 @@ public class ProdutoBLL : AcessoDAL
         }
     }
 
-    public void excluir (ProdutoDTO prod)
+    public void excluir(ProdutoDTO prod)
     {
         String sql = "";
-        sql += "DELETE FROM tbProduto WHERE idProduto = @idProduto";
+        sql += "DELETE FROM tbProduto WHERE idProduto = ?";
 
         command = criaDbCommand(sql, CommandType.Text);
         OleDbParameter parametro = command.Parameters.Add("@idProduto", OleDbType.Integer);
         parametro.Value = prod.idProduto;
-        
+
         try
         {
             drOleDb = command.ExecuteReader();

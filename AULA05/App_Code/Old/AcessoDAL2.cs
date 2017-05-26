@@ -61,8 +61,6 @@ namespace Old
             comm.CommandType = tipo;
             return comm;
         }
-    }
-
-
+    }   
 
 }

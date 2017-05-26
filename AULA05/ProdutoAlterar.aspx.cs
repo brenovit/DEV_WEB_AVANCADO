@@ -13,6 +13,13 @@ public partial class ProdutoAlterar : System.Web.UI.Page
         if (!IsPostBack)
         {
             lblId.Text = Session["idProduto"].ToString();
+            if (!lblId.Text.Equals(""))
+            {
+                ProdutoDTO prod = new ProdutoDTO();
+                prod.idProduto = Convert.ToInt32(lblId.Text);
+                prod = bll.buscaPorID(prod);
+                MostrarProdutoTela(prod);
+            }
         }
     }
 

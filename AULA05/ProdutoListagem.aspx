@@ -50,7 +50,8 @@
             AutoGenerateColumns="false" AutoGenerateSelectButton="true"
             PageSize="10" Width="100%" DataKeyNames="idProduto"
             EmptyDataText="Tem nada aqui" OnPageIndexChanging="grdProdutos_PageIndexChanging"
-            OnSelectedIndexChanged="grdProdutos_SelectedIndexChanged">
+            OnSelectedIndexChanged="grdProdutos_SelectedIndexChanged"
+            OnRowDataBound="grdProdutos_RowDataBound">
             <Columns>
                 <asp:BoundField DataField="idProduto" HeaderText="Id" InsertVisible="true" ControlStyle-CssClass="hide" ItemStyle-CssClass="hide" HeaderStyle-CssClass="hide"/>
                 <asp:BoundField DataField="dsDescricao" HeaderText="DESCRIÇÃO" />
