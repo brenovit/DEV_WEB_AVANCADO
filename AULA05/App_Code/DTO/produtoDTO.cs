@@ -8,10 +8,17 @@ using System.Web;
 /// </summary>
 public class ProdutoDTO
 {
+    public int idProduto { get; set; }
+    public String dsDescricao { get; set; }
+    public double vlValor { get; set; }
+    public String dsFornecedor { get; set; }
+    public int qtEstoque { get; set; }
+
     public ProdutoDTO()
     {
 
     }
+
     public ProdutoDTO(int idProduto, String descricao, double valor, String fornecedor, int estoque)
     {
         this.idProduto = idProduto;
@@ -21,10 +28,4 @@ public class ProdutoDTO
         this.qtEstoque = estoque;
     }
 
-    public int idProduto { get; set; }
-    public String dsDescricao { get; set; }
-    public double vlValor { get; set; }
-    public String dsFornecedor { get; set; }
-
-    public int qtEstoque { get; set; }
 }

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class ProdutoAlterar : System.Web.UI.Page
+public partial class ManualAlterar : System.Web.UI.Page
 {
     private ProdutoBLL bll = new ProdutoBLL();
     protected void Page_Load(object sender, EventArgs e)

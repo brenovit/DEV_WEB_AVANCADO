@@ -11,7 +11,10 @@ public partial class ProdutoListagem : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            CarregarGrid(MontaProduto());
+        }
     }
 
     protected void btnFiltrar_Click(object sender, EventArgs e)
@@ -38,13 +41,16 @@ public partial class ProdutoListagem : System.Web.UI.Page
     }
 
     protected void btnVisualizar_Click(object sender, EventArgs e)
-    {        
-        //bll.buscaPorID()
+    {
+        Session["idProduto"] = lblId.Text;
+        Session["isView"] = true;
+        Response.Redirect("~/ProdutoAlterar.aspx");
     }
 
     protected void btnAlterar_Click(object sender, EventArgs e)
     {
         Session["idProduto"] = lblId.Text;
+        Session["isView"] = false;
         Response.Redirect("~/ProdutoAlterar.aspx");
     }
 
@@ -53,6 +59,7 @@ public partial class ProdutoListagem : System.Web.UI.Page
         ProdutoDTO prod = new ProdutoDTO();
         prod.idProduto = int.Parse(lblId.Text);
         bll.excluir(prod);
+        lblId.Text = "";
         CarregarGrid(MontaProduto());
     }
 
@@ -64,6 +71,7 @@ public partial class ProdutoListagem : System.Web.UI.Page
     protected void btnInserir_Click(object sender, EventArgs e)
     {
         Session["idProduto"] = "";
+        Session["isView"] = false;
         Response.Redirect("~/ProdutoAlterar.aspx");
     }
 

@@ -6,11 +6,10 @@ using System.Web;
 /// <summary>
 /// Summary description for ListaDeProdutos
 /// </summary>
-public class ListaDeProdutos : List<ProdutoDTO>
+public class ListaDeManuais : List<ManualDTO>
 {
-    public ListaDeProdutos()
+    public ListaDeManuais()
     {
 
     }
-
 }
