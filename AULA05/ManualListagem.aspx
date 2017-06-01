@@ -4,6 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="conteudo" Runat="Server">
     <table>
+         <tr>
+            <td>
+                <asp:Label ID="Label3" runat="server" Text="Produto"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList runat="server" ID="dropDownProdutos"></asp:DropDownList>
+            </td>
+        </tr>
         <tr>
             <td>
                 <asp:Label ID="Label1" runat="server" Text="Descrição"></asp:Label>
@@ -18,22 +26,6 @@
             </td>
             <td>
                 <asp:TextBox ID="txtValidade" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-         <tr>
-            <td>
-                <asp:Label ID="Label3" runat="server" Text="Preço"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtPreco" runat="server"></asp:TextBox>
-            </td>
-        </tr>
-         <tr>
-            <td>
-                <asp:Label ID="Label4" runat="server" Text="Estoque"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtEstoque" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>

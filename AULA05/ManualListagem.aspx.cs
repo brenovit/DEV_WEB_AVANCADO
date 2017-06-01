@@ -33,7 +33,7 @@ public partial class ManualListagem : System.Web.UI.Page
     {
         ManualDTO manu = new ManualDTO();
         manu.dsDescricao = txtDescricao.Text;
-        manu.dtValidade = Convert.ToDateTime(txtValidade.Text);
+        manu.dtValidade = string.IsNullOrWhiteSpace(txtValidade.Text) ? DateTime.Today : Convert.ToDateTime(txtValidade.Text);
        
         return manu;
     }

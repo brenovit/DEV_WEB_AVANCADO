@@ -3,5 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="conteudo" Runat="Server">
+    <div style="text-align:center">
+        <img  src="Content/images/produtoServico.png" />
+    </div>
 </asp:Content>
 

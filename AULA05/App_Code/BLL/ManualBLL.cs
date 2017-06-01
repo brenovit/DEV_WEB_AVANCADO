@@ -20,9 +20,9 @@ public class ManualBLL : AcessoDAL
         
     }
 
-    private String montaQuery(ManualDTO manual)
+    private string montaQuery(ManualDTO manual)
     {
-        String sql = "SELECT idManual,idProduto,dsdescricao,dtValidade FROM tbManual WHERE 1=1";
+        string sql = "SELECT idManual,idProduto,dsdescricao,dtValidade FROM tbManual WHERE 1=1";
 
         
         if (manual.idManual > 0)
@@ -62,7 +62,6 @@ public class ManualBLL : AcessoDAL
                 manuRet.dsDescricao = (String)drOleDb["dsdescricao"];
                 manuRet.dtValidade = (DateTime)drOleDb["dtValidade"];                
             }
-
         }
         catch (SystemException e)
         {
@@ -85,7 +84,7 @@ public class ManualBLL : AcessoDAL
                 ManualDTO dtoAux = new ManualDTO();
                 dtoAux.idManual = (int)drOleDb["idManual"];
                 dtoAux.produto.idProduto = (int)drOleDb["idProduto"];
-                dtoAux.dsDescricao = (String)drOleDb["dsdescricao"];
+                dtoAux.dsDescricao = (string)drOleDb["dsdescricao"];
                 dtoAux.dtValidade = (DateTime)drOleDb["dtValidade"];
                 listaRet.Add(dtoAux);
             }
