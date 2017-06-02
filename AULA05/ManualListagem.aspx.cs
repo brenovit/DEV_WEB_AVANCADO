@@ -7,7 +7,8 @@ using System.Web.UI.WebControls;
 
 public partial class ManualListagem : System.Web.UI.Page
 {
-    private ManualBLL bll = new ManualBLL();
+    private ManualBLL manuBll = new ManualBLL();
+    private ProdutoBLL prodBll = new ProdutoBLL();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,7 +26,7 @@ public partial class ManualListagem : System.Web.UI.Page
 
     protected void CarregarGrid(ManualDTO proTela)
     {       
-        grdManual.DataSource = bll.buscaTodos(proTela);
+        grdManual.DataSource = manuBll.buscaTodos(proTela);
         grdManual.DataBind();
     }
 
@@ -34,7 +35,10 @@ public partial class ManualListagem : System.Web.UI.Page
         ManualDTO manu = new ManualDTO();
         manu.dsDescricao = txtDescricao.Text;
         manu.dtValidade = string.IsNullOrWhiteSpace(txtValidade.Text) ? DateTime.Today : Convert.ToDateTime(txtValidade.Text);
-       
+        dropDownProdutos.DataSource = prodBll.buscaTodos(new ProdutoDTO()).ToList();
+        dropDownProdutos.DataTextField = "dsdescricao";
+        dropDownProdutos.DataValueField = "idProduto";
+        dropDownProdutos.DataBind();
         return manu;
     }
 
@@ -56,7 +60,7 @@ public partial class ManualListagem : System.Web.UI.Page
     {
         ManualDTO manu = new ManualDTO();
         manu.idManual = int.Parse(lblId.Text);
-        bll.excluir(manu);
+        manuBll.excluir(manu);
         lblId.Text = "";
         CarregarGrid(MontaManual());
     }
@@ -75,13 +79,14 @@ public partial class ManualListagem : System.Web.UI.Page
 
     private void InseriManual(ManualDTO manu)
     {        
-        bll.cadastrar(manu);
+        manuBll.cadastrar(manu);
     }
 
     private void MostrarManualTela(ManualDTO manu)
     {
+        ProdutoBLL bll = new ProdutoBLL();
         txtDescricao.Text = manu.dsDescricao;
-        txtValidade.Text = manu.dtValidade.ToShortDateString();
+        txtValidade.Text = manu.dtValidade.ToShortDateString();        
         //usa drop down list        
     }
 

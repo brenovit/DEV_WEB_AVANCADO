@@ -7,19 +7,24 @@ using System.Web.UI.WebControls;
 
 public partial class ManualAlterar : System.Web.UI.Page
 {
-    private ProdutoBLL bll = new ProdutoBLL();
+    private ProdutoBLL prodBll = new ProdutoBLL();
+    private ManualBLL manuBll = new ManualBLL();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             bool isView = bool.Parse(Session["isView"].ToString());
             lblId.Text = Session["idProduto"].ToString();
+            dropDownProdutos.DataSource = prodBll.buscaTodos(new ProdutoDTO()).ToList();
+            dropDownProdutos.DataTextField = "dsdescricao";
+            dropDownProdutos.DataValueField = "idProduto";
+            dropDownProdutos.DataBind();
             if (!lblId.Text.Equals(""))
             {
-                ProdutoDTO prod = new ProdutoDTO();
-                prod.idProduto = Convert.ToInt32(lblId.Text);
-                prod = bll.buscaPorID(prod);
-                MostrarProdutoTela(prod);
+                ManualDTO manu = new ManualDTO();
+                manu.idManual = Convert.ToInt32(lblId.Text);
+                manu = manuBll.buscaPorID(manu);
+                MostrarManualTela(manu);
                 btnSalvar.Visible = !isView;
             }
         }
@@ -29,36 +34,38 @@ public partial class ManualAlterar : System.Web.UI.Page
     {
         Response.Redirect("~/ProdutoListagem.aspx");
     }
-    private void MostrarProdutoTela(ProdutoDTO prod)
+    private void MostrarManualTela(ManualDTO manu)
     {
-        txtDescricao.Text = prod.dsDescricao;
-        txtFornecedor.Text = prod.dsFornecedor;
-        txtEstoque.Text = prod.qtEstoque.ToString();
-        txtPreco.Text = prod.vlValor.ToString();
+        dropDownProdutos.Text = manu.prod.idProduto.ToString();
+        txtDescricao.Text = manu.dsDescricao;
+        txtValidade.Text = manu.dtValidade.ToShortDateString();
     }
     protected void btnSalvar_Click(object sender, EventArgs e)
     {
-        ProdutoDTO prod = MontaProduto();
+        ManualDTO manu = MontaManual();
+
         if (lblId.Text.Equals(""))
         {
-            bll.cadastrar(prod);
+            manuBll.cadastrar(manu);
         }
         else
         {
-            prod.idProduto = Convert.ToInt32(lblId.Text);
-            bll.alterar(prod);
+            manu.idManual = Convert.ToInt32(lblId.Text);
+            manuBll.alterar(manu);
         }
         Response.Redirect("~/ProdutoListagem.aspx");
     }
 
-    protected ProdutoDTO MontaProduto()
+    protected ManualDTO MontaManual()
     {
         ProdutoDTO prod = new ProdutoDTO();
-        prod.dsDescricao = txtDescricao.Text;
-        prod.dsFornecedor = txtFornecedor.Text;
-        prod.qtEstoque = txtEstoque.Text.Trim() == "" ? 0 : Convert.ToInt32(txtEstoque.Text);
-        prod.vlValor = txtPreco.Text.Trim() == "" ? 0 : Convert.ToDouble(txtPreco.Text);
-
-        return prod;
+        prod.idProduto = int.Parse(dropDownProdutos.Text);
+        ManualDTO manu = new ManualDTO();
+        manu.dtValidade = string.IsNullOrWhiteSpace(txtValidade.Text) ? DateTime.Today : Convert.ToDateTime(txtValidade.Text);
+        manu.dsDescricao = txtDescricao.Text;
+        manu.prod = prod;
+        return manu;
     }
+
+    
 }

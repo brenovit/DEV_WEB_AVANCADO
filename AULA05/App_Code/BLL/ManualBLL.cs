@@ -29,9 +29,9 @@ public class ManualBLL : AcessoDAL
         {
             sql += "AND idManual = " + manual.idManual;
         }
-        if (manual.produto.idProduto > 0)
+        if (manual.prod.idProduto > 0)
         {
-            sql += "AND idProduto = " + manual.produto.idProduto;
+            sql += "AND idProduto = " + manual.prod.idProduto;
         }
         if (!string.IsNullOrEmpty(manual.dsDescricao))            
         {
@@ -56,9 +56,9 @@ public class ManualBLL : AcessoDAL
             while (drOleDb.Read())
             {
                 manuRet.idManual = (int)drOleDb["idManual"];                
-                manuRet.produto.idProduto = (int)drOleDb["idProduto"];
+                manuRet.prod.idProduto = (int)drOleDb["idProduto"];
                 ProdutoBLL bll = new ProdutoBLL();
-                manuRet.produto = bll.buscaPorID(manuRet.produto);
+                manuRet.prod = bll.buscaPorID(manuRet.prod);
                 manuRet.dsDescricao = (String)drOleDb["dsdescricao"];
                 manuRet.dtValidade = (DateTime)drOleDb["dtValidade"];                
             }
@@ -83,7 +83,7 @@ public class ManualBLL : AcessoDAL
             {
                 ManualDTO dtoAux = new ManualDTO();
                 dtoAux.idManual = (int)drOleDb["idManual"];
-                dtoAux.produto.idProduto = (int)drOleDb["idProduto"];
+                dtoAux.prod.idProduto = (int)drOleDb["idProduto"];
                 dtoAux.dsDescricao = (string)drOleDb["dsdescricao"];
                 dtoAux.dtValidade = (DateTime)drOleDb["dtValidade"];
                 listaRet.Add(dtoAux);
@@ -127,7 +127,7 @@ public class ManualBLL : AcessoDAL
         command = criaDbCommand(sql, CommandType.Text);
 
         command.Parameters.AddWithValue("@idManual", idManual);
-        command.Parameters.AddWithValue("@idproduto", prod.produto.idProduto);
+        command.Parameters.AddWithValue("@idproduto", prod.prod.idProduto);
         command.Parameters.AddWithValue("@dsDescricao", prod.dsDescricao);
         command.Parameters.AddWithValue("@dtValidade", prod.dtValidade);
 
@@ -153,7 +153,7 @@ public class ManualBLL : AcessoDAL
                 
         command.Parameters.AddWithValue("@dsDescricao", prod.dsDescricao);
         command.Parameters.AddWithValue("@dtValidade", prod.dtValidade);
-        command.Parameters.AddWithValue("@idproduto", prod.produto.idProduto);
+        command.Parameters.AddWithValue("@idproduto", prod.prod.idProduto);
         command.Parameters.AddWithValue("@idManual", prod.idManual);
 
         try

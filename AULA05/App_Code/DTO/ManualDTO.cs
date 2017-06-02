@@ -8,14 +8,13 @@ using System.Web;
 /// </summary>
 public class ManualDTO
 {
-    public ProdutoDTO produto { get; set; }
+    public ProdutoDTO prod { get; set; }
     public String dsDescricao { get; set; }
     public DateTime dtValidade { get; set; }
     public int idManual { get; set; }
 
     public ManualDTO()
     {
-        this.produto = new ProdutoDTO();
+        this.prod = new ProdutoDTO();
     }
-
 }
