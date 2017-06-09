@@ -88,6 +88,7 @@ public class ProdutoBLL : AcessoDAL
                 dtoAux.qtEstoque = (int)drOleDb["qtEstoque"];
                 listaRet.Add(dtoAux);
             }
+            drOleDb.Close();
         }
         catch (SystemException e)
         {
