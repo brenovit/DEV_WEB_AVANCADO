@@ -12,13 +12,12 @@ public class ConnectionFactory
     private static IDbConnection _conn;
     private static OleDbDataReader _dataReader;
     private static OleDbCommand _command;
-    //private static DataSet _dataSet;
     private static OleDbTransaction _transaction;
 
     public ConnectionFactory() { }
 
     /// <summary>
-    /// Main resource of the factory, to manipulate querys
+    /// Main resource of the factory, to manipulate querys.
     /// </summary>
     protected static OleDbCommand Factory
     {
@@ -37,7 +36,7 @@ public class ConnectionFactory
     }
 
     /// <summary>
-    /// Open the connection
+    /// Open the connection.
     /// </summary>
     /// <param name="transaction"></param>
     /// <returns></returns>
@@ -64,7 +63,7 @@ public class ConnectionFactory
     }
 
     /// <summary>
-    /// Close the connection and clean the transaction
+    /// Close the connection and clean the transaction.
     /// </summary>
     /// <returns></returns>
     public static bool Close()
@@ -87,7 +86,7 @@ public class ConnectionFactory
     }
 
     /// <summary>
-    /// Ends the transaction
+    /// Ends the transaction.
     /// </summary>
     /// <param name="commit">Will you commit?</param>
     public static void EndTransaction(bool commit)
@@ -103,7 +102,7 @@ public class ConnectionFactory
     }
 
     /// <summary>
-    /// Clear the parameters in the Factory
+    /// Clear the parameters in the Factory.
     /// </summary>
     protected static void CleanParameters()
     {
@@ -112,7 +111,7 @@ public class ConnectionFactory
 
     /// <summary>
     /// Execute a SQL against the connection and return the number of rows affected.
-    /// Recomended for: UPDATE and DELETE
+    /// Recomended for: UPDATE and DELETE.
     /// </summary>
     /// <param name="transaction">Will be a transaction?</param>
     /// <returns>Number of rows affected</returns>
@@ -144,7 +143,7 @@ public class ConnectionFactory
     /// <summary>
     /// Execute the query, and return the first column of the first row.
     /// Can be used with SELECT SCOPE_IDENTITY() for SQLServer.
-    /// Recomended for: INSERT
+    /// Recomended for: INSERT.
     /// </summary>
     /// <param name="transaction">Will be a transaction</param>
     /// <returns>Number of rows affected</returns>
@@ -174,8 +173,9 @@ public class ConnectionFactory
     }
 
     /// <summary>
-    /// Send the Query to the Connection, builds and return a DataTable
-    /// Recomended for: SELECT
+    /// Send the Query to the Connection, builds and return a DataTable.
+    /// Recomended for: SELECT.
+    /// Necessary close the connection manually, invoke Close().
     /// </summary>
     /// <param name="transaction">Will be a transaction</param>
     /// <returns>Number of rows affected</returns>
