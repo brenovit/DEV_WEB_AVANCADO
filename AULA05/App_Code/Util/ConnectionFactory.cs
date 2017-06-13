@@ -8,7 +8,7 @@ using System.Data.OleDb;
 /// </summary>
 public class ConnectionFactory
 {
-    private static string connectionString = ConfigurationManager.ConnectionStrings["Banco"].ConnectionString;
+    private static string connectionString = System.Configuration.ConfigurationManager.AppSettings["ConexaoOle"].ToString();
     private static IDbConnection _conn;
     private static OleDbDataReader _dataReader;
     private static OleDbCommand _command;

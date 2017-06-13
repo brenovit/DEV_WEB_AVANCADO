@@ -27,7 +27,7 @@
                 <div id="menu" class="vertical-menu">
                     <a href="ProdutoListagem.aspx" id="about">Produto</a>
                     <a href="ManualListagem.aspx" id="blog">Manual</a>
-                    <a href="#" id="projects">Venda</a>
+                    <a href="ClienteListagem.aspx" id="projects">Clientes</a>
                     <a href="#" id="contact">Impressão</a>
                 </div>
             </nav>
